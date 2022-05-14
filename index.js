@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const inquirer = require('inquirer');
+const buildHTML = require('./src/templater.js')
+
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
@@ -56,8 +58,10 @@ const addTeamMember = () => {
         break;
       case "Engineer":
         createEngineer();
+        break;
       case "Intern":
         createIntern();
+        break;
       default:
         break;
     }
@@ -120,6 +124,14 @@ const createIntern = () => {
     teamMembers.push(intern);
     startApp();
   })
+}
+
+const buildTeam = () => {
+  const teamHTML = buildHTML(teamMembers);
+  fs.writeFile("./build/index.html", teamHTML, () => {
+    console.log('donion rings');
+  })
+  //write teamHTML to file
 }
 
 
