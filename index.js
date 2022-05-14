@@ -15,6 +15,26 @@ const initialQuestions = [
   }
 ]
 
+
+const baseEmployeeQuestions = [
+  {
+    message: "What is this employees name?",
+    type: "input",
+    name: "memberName"
+  },
+  {
+    message: "What is the employees ID?",
+    type: "input",
+    name: "memberId"
+  },
+  {
+    message: "What is the employees email?",
+    type: "input",
+    name: "memberEmail"
+  }
+]
+
+
 const addTeamMember = () => {
   const memberTypeQuestion = [
     {
@@ -47,7 +67,22 @@ const addTeamMember = () => {
 
 const createManager = () => {
   //this will create a manager by asking manager related prompts
-  console.log('running the createManager function') 
+  const managerQuestions = [
+    ...baseEmployeeQuestions,
+    {
+      message: "What is the managers office number?",
+      type: "input",
+      name: "managerNumber"
+    }
+  ]
+  inquirer.prompt(managerQuestions)
+  .then(answers => {
+    const {memberName, memberId, memberEmail, managerNumber} = answers
+    const manager = new Manager(memberName, memberId, memberEmail, managerNumber)
+    teamMembers.push(manager);
+    console.log(teamMembers);
+    startApp();
+  })
 }
 
 const createEngineer = () => {
