@@ -80,19 +80,46 @@ const createManager = () => {
     const {memberName, memberId, memberEmail, managerNumber} = answers
     const manager = new Manager(memberName, memberId, memberEmail, managerNumber)
     teamMembers.push(manager);
-    console.log(teamMembers);
     startApp();
   })
 }
 
 const createEngineer = () => {
   //this will create an Engineer by asking Engineer related prompts
-  console.log('running the createEngineer function') 
+  const engineerQuestions = [
+    ...baseEmployeeQuestions,
+    {
+      message: "What is this Engineers github username?",
+      type: "input",
+      name: "gitHubUsername"
+    }
+  ]
+  inquirer.prompt(engineerQuestions)
+  .then(answers => {
+    const {memberName, memberId, memberEmail, gitHubUsername} = answers;
+    const engineer = new Engineer(memberName, memberId, memberEmail, gitHubUsername)
+    teamMembers.push(engineer);
+    startApp();
+  })
 }
 
 const createIntern = () => {
   // this will create an intern by asking Intern related prompts
-  console.log('running the createIntern function')
+  const internQuestions = [
+    ...baseEmployeeQuestions,
+    {
+      message: "What is this Interns School?",
+      type: "input",
+      name: "school"
+    }
+  ]
+  inquirer.prompt(internQuestions)
+  .then(answers => {
+    const {memberName, memberId, memberEmail, school} =answers
+    const intern = new Intern(memberName, memberId, memberEmail, school)
+    teamMembers.push(intern);
+    startApp();
+  })
 }
 
 
